@@ -247,3 +247,21 @@ From the project description we know that there are 4571 buildings total.
 We know that we need 186.068 seconds for 90 buildings and 16 workers. So:
 
 T = (186.068 / 90) / 4571 ≈ 9.448 seconds ≈ 2.6 hours
+
+7. We implemented a Numba JIT-compiled version of the Jacobi solver and compared it to the provided reference implementation. Both versions were run on the **same subset of 90 floorplans** to ensure a fair comparison.
+
+- **Performance comparison:**  
+  The reference implementation processed 90 floorplans in **46 min 1.126 s**, while the Numba version completed the same workload in **4 min 21.995 s**. This corresponds to a speed-up of approximately **10.54×**. The improvement comes from eliminating expensive NumPy operations such as slicing, boolean masking, and temporary array creation inside the iterative loop, and replacing them with compiled loops executed efficiently on the CPU.
+
+- **Explanation of the function and cache efficiency:**  
+  The Numba version rewrites the Jacobi solver using `@njit`, enabling compilation to optimized machine code. The solver uses two arrays (`u_old` and `u_new`) to implement the Jacobi update correctly, where each iteration reads from the previous state and writes to a new one. The computation is performed using nested loops over rows and columns, updating only interior cells as defined by the mask.  
+  To ensure good CPU cache performance, the loops iterate in **row-major order** (row index outer, column index inner), which matches NumPy’s memory layout and provides contiguous memory access. Additionally, only neighboring elements are accessed for each update, improving spatial locality. Temporary arrays are avoided, and values such as the convergence criterion (`delta`) are computed on-the-fly, reducing memory traffic and improving cache efficiency.
+
+- **Estimated total runtime:**  
+  Based on the runtime for 90 floorplans (**261.995 seconds**) and assuming approximately linear scaling, the total runtime for all **4571 floorplans** is estimated as:
+  
+  \[
+  T_{\text{all}} \approx 261.995 \cdot \frac{4571}{90} \approx 13312 \text{ seconds} \approx 3.7 \text{ hours}
+  \]
+  
+  This is a significant improvement compared to the reference implementation, which was estimated to take approximately **39 hours**.
