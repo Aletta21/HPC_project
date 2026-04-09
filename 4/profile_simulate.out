@@ -1,0 +1,28 @@
+Running serial
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 14.012338788112752, 6.367431059312565, 30.941014791508444, 55.542295034537624
+10009, 11.000135812436369, 5.811144379826625, 16.6712734948236, 74.9723590310584
+10014, 14.744169941950119, 7.037733284673848, 38.26367541377415, 52.80837116508215
+10019, 14.735524480624482, 7.030325006703675, 38.14915412864569, 52.92926826787113
+10029, 10.616037322820354, 6.317331938274926, 18.25563221896085, 74.51301795448481
+Wrote profile results to 'profile_simulate.py.lprof'
+Timer unit: 1e-06 s
+
+Total time: 48.8142 s
+File: profile_simulate.py
+Function: jacobi at line 13
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    13                                           @profile
+    14                                           def jacobi(u, interior_mask, max_iter, atol=1e-6):
+    15         5       2674.0    534.8      0.0      u = np.copy(u)
+    16     28423      21180.7      0.7      0.0      for i in range(max_iter):
+    17     28423   27065966.4    952.3     55.4          u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
+    18     28423    5555940.3    195.5     11.4          u_new_interior = u_new[interior_mask]
+    19     28423   10324776.6    363.3     21.2          delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
+    20     28423    5816578.9    204.6     11.9          u[1:-1, 1:-1][interior_mask] = u_new_interior
+    21     28423      27113.6      1.0      0.1          if delta < atol:
+    22         5          4.2      0.8      0.0              break
+    23         5          5.2      1.0      0.0      return u
+
