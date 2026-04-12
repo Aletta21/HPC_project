@@ -265,3 +265,20 @@ T = (186.068 / 90) / 4571 ≈ 9.448 seconds ≈ 2.6 hours
   \]
   
   This is a significant improvement compared to the reference implementation, which was estimated to take approximately **39 hours**.
+
+8. We implemented a custom CUDA kernel using Numba to run the Jacobi solver on the GPU. The kernel performs **exactly one Jacobi iteration per launch**, and a helper function repeatedly launches the kernel for a fixed number of iterations. This was necessary because synchronization across all threads is only guaranteed between kernel launches, not globally inside a single kernel. As required by the task, we **skipped early stopping** and ran the solver for a fixed number of iterations.
+
+- **Description of the solution:**  
+  Each GPU thread is responsible for updating one grid cell. For interior cells, the new value is computed as the average of the four neighboring values from the previous iteration. Non-interior cells keep their old values. Two device arrays (`u_old` and `u_new`) are used so that each iteration reads from the old grid and writes to a new one. After each kernel launch, the two arrays are swapped.
+
+- **Performance comparison:**  
+  We ran the CUDA implementation on **90 floorplans** and measured a total runtime of **86.464 s**. For comparison, the provided reference implementation took **46 min 1.126 s** on the same number of floorplans, while our Numba JIT CPU implementation took **4 min 21.995 s**. This means the CUDA version achieved a speed-up of approximately **31.9×** relative to the reference and about **3.03×** relative to the Numba CPU version.
+
+- **Estimated total runtime:**  
+  Assuming approximately linear scaling, the runtime for all **4571 floorplans** can be estimated from the 90-floorplan run:
+  
+  \[
+  T_{\text{all}} \approx 86.464 \cdot \frac{4571}{90} \approx 4392 \text{ s} \approx 73.2 \text{ min} \approx 1.22 \text{ h}
+  \]
+  
+  Thus, the custom CUDA implementation would be expected to process the full dataset in about **1 hour 13 minutes**.
