@@ -1,6 +1,8 @@
 from os.path import join
 import sys
+
 import numpy as np
+from line_profiler import profile
 
 
 def load_data(load_dir, bid):
@@ -13,11 +15,14 @@ def load_data(load_dir, bid):
 @profile
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
     u = np.copy(u)
+
     for i in range(max_iter):
+        # Compute average of left, right, up and down neighbors, see eq. (1)
         u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
         u_new_interior = u_new[interior_mask]
         delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
         u[1:-1, 1:-1][interior_mask] = u_new_interior
+
         if delta < atol:
             break
     return u
@@ -38,6 +43,7 @@ def summary_stats(u, interior_mask):
 
 
 if __name__ == '__main__':
+    # Load data
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
         building_ids = f.read().splitlines()
@@ -67,7 +73,7 @@ if __name__ == '__main__':
 
     # Print summary statistics in CSV format
     stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
-    print('building_id, ' + ', '.join(stat_keys))
+    print('building_id, ' + ', '.join(stat_keys))  # CSV header
     for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
         stats = summary_stats(u, interior_mask)
         print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))

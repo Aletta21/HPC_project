@@ -90,3 +90,59 @@ building_id, mean_temp, std_temp, pct_above_18, pct_below_15
 10291, 12.22379168475285, 6.737662754247167, 25.168721421543093, 66.23487874052209
 10292, 11.179803531479, 6.445345196544433, 20.07569619667122, 72.58501354198013
 10303, 17.624521843253685, 6.581219065479167, 55.59736902385549, 34.55283222618541
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28214147: <task6_16> in cluster <dcc> Done
+
+Job <task6_16> was submitted from host <n-62-9-40> by user <s254289> in cluster <dcc> at Wed Apr 15 08:28:27 2026
+Job was executed on host(s) <16*n-62-11-57>, in queue <hpc>, as user <s254289> in cluster <dcc> at Wed Apr 15 08:28:28 2026
+</zhome/20/1/224653> was used as the home directory.
+</zhome/20/1/224653/HPC_project/6> was used as the working directory.
+Started at Wed Apr 15 08:28:28 2026
+Terminated at Wed Apr 15 08:32:10 2026
+Results reported at Wed Apr 15 08:32:10 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -q hpc
+#BSUB -J task6_16
+#BSUB -n 16
+#BSUB -W 00:30
+#BSUB -R "select[model==XeonGold6226R] rusage[mem=16GB]"
+#BSUB -R "span[hosts=1]"
+#BSUB -o task6_16.out
+#BSUB -e task6_16.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+time python task6.py 90 16
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3268.84 sec.
+    Max Memory :                                 241 MB
+    Average Memory :                             237.50 MB
+    Total Requested Memory :                     262144.00 MB
+    Delta Memory :                               261903.00 MB
+    Max Swap :                                   -
+    Max Processes :                              20
+    Max Threads :                                24
+    Run time :                                   222 sec.
+    Turnaround time :                            223 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <task6_16.err> for stderr output of this job.
+
