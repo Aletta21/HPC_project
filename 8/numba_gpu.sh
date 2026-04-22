@@ -1,8 +1,9 @@
 #!/bin/bash
-#BSUB -q c02613
+#BSUB -q gpuv100
 #BSUB -J task8_cuda
 #BSUB -n 4
 #BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "select[gpu16gb]"
 #BSUB -W 00:30
 #BSUB -R "rusage[mem=1GB]"
 #BSUB -R "span[hosts=1]"
