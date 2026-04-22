@@ -1,4 +1,4 @@
-Sun Apr 12 18:47:52 2026       
+Wed Apr 22 13:12:38 2026       
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 595.58.03              Driver Version: 595.58.03      CUDA Version: 13.2     |
 +-----------------------------------------+------------------------+----------------------+
@@ -6,8 +6,8 @@ Sun Apr 12 18:47:52 2026
 | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
-|   0  NVIDIA A100 80GB PCIe          On  |   00000000:65:00.0 Off |                   On |
-| N/A   35C    P0             63W /  300W |     249MiB /  81920MiB |     N/A      Default |
+|   0  NVIDIA A100 80GB PCIe          On  |   00000000:CA:00.0 Off |                   On |
+| N/A   38C    P0             68W /  300W |     237MiB /  81920MiB |     N/A      Default |
 |                                         |                        |              Enabled |
 +-----------------------------------------+------------------------+----------------------+
 
@@ -18,7 +18,7 @@ Sun Apr 12 18:47:52 2026
 |      ID  ID  Dev |                Shared BAR1-Usage | SM     Unc| CE ENC  DEC  OFA  JPG |
 |                  |                                  |        ECC|                       |
 |==================+==================================+===========+=======================|
-|  0    5   0   0  |              71MiB / 19968MiB    | 28      0 |  2   0    1    0    0 |
+|  0    5   0   0  |              68MiB / 19968MiB    | 28      0 |  2   0    1    0    0 |
 |                  |               0MiB / 12271MiB    |           |                       |
 +------------------+----------------------------------+-----------+-----------------------+
 
@@ -121,4 +121,63 @@ building_id, mean_temp, std_temp, pct_above_18, pct_below_15
 10292, 11.196085184116273, 6.440881151698591, 20.106946920067596, 72.5282992661867
 10303, 17.639862791483523, 6.578672763877198, 55.705356850682286, 34.47756798324553
 
-Elapsed time: 86.464033 s
+Elapsed time: 84.099548 s
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28254756: <task8_cuda> in cluster <dcc> Done
+
+Job <task8_cuda> was submitted from host <gbarlogin1> by user <s252976> in cluster <dcc> at Wed Apr 22 13:12:30 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s252976> in cluster <dcc> at Wed Apr 22 13:12:32 2026
+</zhome/6b/3/223370> was used as the home directory.
+</zhome/6b/3/223370/projects/HPC_python/HPC_project/8> was used as the working directory.
+Started at Wed Apr 22 13:12:32 2026
+Terminated at Wed Apr 22 13:14:04 2026
+Results reported at Wed Apr 22 13:14:04 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -q c02613
+#BSUB -J task8_cuda
+#BSUB -n 4
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -W 00:30
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -R "span[hosts=1]"
+#BSUB -o task8_cuda.out
+#BSUB -e task8_cuda.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+nvidia-smi
+
+time python numba_gpu.py 90
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   87.58 sec.
+    Max Memory :                                 103 MB
+    Average Memory :                             101.67 MB
+    Total Requested Memory :                     4096.00 MB
+    Delta Memory :                               3993.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                10
+    Run time :                                   92 sec.
+    Turnaround time :                            94 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <task8_cuda.err> for stderr output of this job.
+
