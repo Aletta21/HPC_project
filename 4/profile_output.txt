@@ -1,0 +1,30 @@
+Timer unit: 1e-09 s
+
+Total time: 253.232 s
+File: /zhome/20/1/224653/HPC_project/4/profile_simulate.py
+Function: jacobi at line 15
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    15                                           @profile
+    16                                           def jacobi(u, interior_mask, max_iter, atol=1e-6):
+    17        20   10311777.0 515588.8      0.0      u = np.copy(u)
+    18                                           
+    19    118118  114488103.0    969.3      0.0      for i in range(max_iter):
+    20                                                   # Compute average of left, right, up and down neighbors, see eq. (1)
+    21    118118     1.37e+11 1.16e+06     54.0          u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
+    22    118118     2.83e+10 239311.8     11.2          u_new_interior = u_new[interior_mask]
+    23    118118     5.59e+10 472893.9     22.1          delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
+    24    118118      3.2e+10 271124.3     12.6          u[1:-1, 1:-1][interior_mask] = u_new_interior
+    25                                           
+    26    118118  233838350.0   1979.7      0.1          if delta < atol:
+    27        20      19806.0    990.3      0.0              break
+    28        20      43607.0   2180.3      0.0      return u
+
+253.23 seconds - /zhome/20/1/224653/HPC_project/4/profile_simulate.py:15 - jacobi
+
+Computation based on the adiacent nodes takes most of the time (54.0%), since it needs to collect data from memory. In this implementation, 
+the program creates many copies of the data and utilizes more space than needed, requiring more time.
+Then, the function takes a great amount of time to consider the mask of interior points and copy the useful values(11.2%).
+The computation of delta represents 22.1% of the function's run-time, because it creates a new big data structure and then sweeps it to search for the maximum value.
+Eventually, updating the interior nodes requires 271124 ns per hit, which represents the 12.6% of the total.

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 workers = [1, 2, 4, 8, 16]
-speedup = [1.00, 2.09, 6.80, 9.44, 14.84]
+speedup = [1.00, 2.05, 2.77, 3.89, 7.12]
 ideal = workers
 
 plt.figure(figsize=(7, 4))
