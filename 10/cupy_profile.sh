@@ -1,5 +1,5 @@
 #!/bin/bash
-#BSUB -q gpuv100
+#BSUB -q c02613
 #BSUB -J cupy_profile
 #BSUB -n 4
 #BSUB -W 00:30
@@ -11,7 +11,6 @@
 
 source /dtu/projects/02613_2025/conda/conda_init.sh
 conda activate cupy_env
-
 module swap cuda cuda/12.6
 
 nsys profile -o cupy_profile python cupy_simulate.py 5

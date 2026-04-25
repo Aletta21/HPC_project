@@ -1,0 +1,69 @@
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 14.012338788112752, 6.367431059312565, 30.941014791508444, 55.542295034537624
+10009, 11.000135812436369, 5.811144379826625, 16.6712734948236, 74.9723590310584
+10014, 14.744169941950117, 7.037733284673849, 38.26367541377415, 52.80837116508215
+10019, 14.735524480624484, 7.030325006703675, 38.14915412864569, 52.92926826787113
+10029, 10.616037322820358, 6.317331938274926, 18.25563221896085, 74.51301795448481
+Generating '/tmp/nsys-report-1e7d.qdstrm'
+[1/1] [0%                          ] cupy_profile.nsys-rep[1/1] [0%                          ] cupy_profile.nsys-rep[1/1] [0%                          ] cupy_profile.nsys-rep[1/1] [5%                          ] cupy_profile.nsys-rep[1/1] [6%                          ] cupy_profile.nsys-rep[1/1] [7%                          ] cupy_profile.nsys-rep[1/1] [8%                          ] cupy_profile.nsys-rep[1/1] [9%                          ] cupy_profile.nsys-rep[1/1] [10%                         ] cupy_profile.nsys-rep[1/1] [11%                         ] cupy_profile.nsys-rep[1/1] [12%                         ] cupy_profile.nsys-rep[1/1] [13%                         ] cupy_profile.nsys-rep[1/1] [14%                         ] cupy_profile.nsys-rep[1/1] [=15%                        ] cupy_profile.nsys-rep[1/1] [=16%                        ] cupy_profile.nsys-rep[1/1] [=17%                        ] cupy_profile.nsys-rep[1/1] [==18%                       ] cupy_profile.nsys-rep[1/1] [==19%                       ] cupy_profile.nsys-rep[1/1] [==20%                       ] cupy_profile.nsys-rep[1/1] [==21%                       ] cupy_profile.nsys-rep[1/1] [===22%                      ] cupy_profile.nsys-rep[1/1] [===23%                      ] cupy_profile.nsys-rep[1/1] [===24%                      ] cupy_profile.nsys-rep[1/1] [====25%                     ] cupy_profile.nsys-rep[1/1] [====26%                     ] cupy_profile.nsys-rep[1/1] [====27%                     ] cupy_profile.nsys-rep[1/1] [====28%                     ] cupy_profile.nsys-rep[1/1] [=====29%                    ] cupy_profile.nsys-rep[1/1] [=====30%                    ] cupy_profile.nsys-rep[1/1] [=====31%                    ] cupy_profile.nsys-rep[1/1] [=====32%                    ] cupy_profile.nsys-rep[1/1] [======33%                   ] cupy_profile.nsys-rep[1/1] [======34%                   ] cupy_profile.nsys-rep[1/1] [======35%                   ] cupy_profile.nsys-rep[1/1] [=======36%                  ] cupy_profile.nsys-rep[1/1] [=======37%                  ] cupy_profile.nsys-rep[1/1] [=======38%                  ] cupy_profile.nsys-rep[1/1] [=======39%                  ] cupy_profile.nsys-rep[1/1] [========40%                 ] cupy_profile.nsys-rep[1/1] [========41%                 ] cupy_profile.nsys-rep[1/1] [========42%                 ] cupy_profile.nsys-rep[1/1] [=========43%                ] cupy_profile.nsys-rep[1/1] [=========44%                ] cupy_profile.nsys-rep[1/1] [=========45%                ] cupy_profile.nsys-rep[1/1] [=========46%                ] cupy_profile.nsys-rep[1/1] [==========47%               ] cupy_profile.nsys-rep[1/1] [==========48%               ] cupy_profile.nsys-rep[1/1] [==========49%               ] cupy_profile.nsys-rep[1/1] [===========50%              ] cupy_profile.nsys-rep[1/1] [===========51%              ] cupy_profile.nsys-rep[1/1] [===========52%              ] cupy_profile.nsys-rep[1/1] [===========53%              ] cupy_profile.nsys-rep[1/1] [============54%             ] cupy_profile.nsys-rep[1/1] [============55%             ] cupy_profile.nsys-rep[1/1] [============56%             ] cupy_profile.nsys-rep[1/1] [============57%             ] cupy_profile.nsys-rep[1/1] [=============58%            ] cupy_profile.nsys-rep[1/1] [=============59%            ] cupy_profile.nsys-rep[1/1] [=============60%            ] cupy_profile.nsys-rep[1/1] [==============61%           ] cupy_profile.nsys-rep[1/1] [==============62%           ] cupy_profile.nsys-rep[1/1] [==============63%           ] cupy_profile.nsys-rep[1/1] [==============64%           ] cupy_profile.nsys-rep[1/1] [===============65%          ] cupy_profile.nsys-rep[1/1] [===============66%          ] cupy_profile.nsys-rep[1/1] [===============67%          ] cupy_profile.nsys-rep[1/1] [================68%         ] cupy_profile.nsys-rep[1/1] [================69%         ] cupy_profile.nsys-rep[1/1] [================70%         ] cupy_profile.nsys-rep[1/1] [================71%         ] cupy_profile.nsys-rep[1/1] [=================72%        ] cupy_profile.nsys-rep[1/1] [=================73%        ] cupy_profile.nsys-rep[1/1] [=================74%        ] cupy_profile.nsys-rep[1/1] [==================75%       ] cupy_profile.nsys-rep[1/1] [==================76%       ] cupy_profile.nsys-rep[1/1] [==================77%       ] cupy_profile.nsys-rep[1/1] [========================100%] cupy_profile.nsys-rep[1/1] [========================100%] cupy_profile.nsys-rep
+Generated:
+    /zhome/32/a/223527/PythonHPC/Project/cupy_profile.nsys-rep
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28281583: <cupy_profile> in cluster <dcc> Done
+
+Job <cupy_profile> was submitted from host <hpclogin1> by user <s253154> in cluster <dcc> at Sat Apr 25 19:59:46 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s253154> in cluster <dcc> at Sat Apr 25 19:59:47 2026
+</zhome/32/a/223527> was used as the home directory.
+</zhome/32/a/223527/PythonHPC/Project> was used as the working directory.
+Started at Sat Apr 25 19:59:47 2026
+Terminated at Sat Apr 25 20:00:55 2026
+Results reported at Sat Apr 25 20:00:55 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -q c02613
+#BSUB -J cupy_profile
+#BSUB -n 4
+#BSUB -W 00:30
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -R "span[hosts=1]"
+#BSUB -o cupy_profile.out
+#BSUB -e cupy_profile.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate cupy_env
+module swap cuda cuda/12.6
+
+nsys profile -o cupy_profile python cupy_simulate.py 5
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   44.00 sec.
+    Max Memory :                                 269 MB
+    Average Memory :                             269.00 MB
+    Total Requested Memory :                     65536.00 MB
+    Delta Memory :                               65267.00 MB
+    Max Swap :                                   -
+    Max Processes :                              8
+    Max Threads :                                28
+    Run time :                                   68 sec.
+    Turnaround time :                            69 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <cupy_profile.err> for stderr output of this job.
+
