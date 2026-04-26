@@ -25,16 +25,16 @@ def jacobi_gpu(u_gpu, interior_mask_gpu, max_iter, atol=1e-4):
 
         u_new_interior = u_new[interior_mask_gpu]
 
-        # Only check convergence every 100 iterations
+        # Check convergence every 100 iterations to avoid
+        # repeated GPU->CPU sync (delta.item() is expensive)
         if i % 100 == 0:
             delta = cp.abs(
                 u_gpu[1:-1, 1:-1][interior_mask_gpu] - u_new_interior
             ).max()
+            if delta.item() < atol:
+                break
 
         u_gpu[1:-1, 1:-1][interior_mask_gpu] = u_new_interior
-
-        if i % 100 == 0 and delta.item() < atol:
-            break
 
     return u_gpu
 
@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
     for bid in building_ids:
         u0, interior_mask = load_data(LOAD_DIR, bid)
-        u_gpu            = cp.asarray(u0)
+        u_gpu             = cp.asarray(u0)
         interior_mask_gpu = cp.asarray(interior_mask)
         u_gpu = jacobi_gpu(u_gpu, interior_mask_gpu, MAX_ITER, ABS_TOL)
         stats = summary_stats_gpu(u_gpu, interior_mask_gpu)

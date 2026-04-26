@@ -1,5 +1,5 @@
 #!/bin/bash
-#BSUB -q gpuv100
+#BSUB -q c02613
 #BSUB -J nsys_stats
 #BSUB -n 4
 #BSUB -W 00:10
