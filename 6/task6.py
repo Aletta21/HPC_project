@@ -1,6 +1,7 @@
 
 from os.path import join
 import sys
+import time
 import numpy as np
 from multiprocessing import Pool, cpu_count
 
@@ -65,9 +66,15 @@ if __name__ == '__main__':
 
     args = [(bid, LOAD_DIR, MAX_ITER, ABS_TOL) for bid in building_ids]
 
+    t0 = time.perf_counter()
+
     with Pool(processes=NUM_WORKERS) as pool:
         # chunksize = N // NUM_WORKERS gives each worker the same fixed chunk = static scheduling
         results = pool.map(process_building, args, chunksize=1)
+
+    t1 = time.perf_counter()
+
+    print(f"Processing time: {t1 - t0:.2f} seconds")
 
     # Print results in CSV format
     stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
