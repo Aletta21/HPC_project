@@ -1,5 +1,6 @@
 from os.path import join
 import sys
+import time
 import numpy as np
 import cupy as cp
 
@@ -56,22 +57,25 @@ if __name__ == '__main__':
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
         building_ids = f.read().splitlines()
 
-    if len(sys.argv) < 2:
-        N = 1
-    else:
-        N = int(sys.argv[1])
+    N = int(sys.argv[1]) if len(sys.argv) > 1 else 1
     building_ids = building_ids[:N]
 
     MAX_ITER = 20_000
     ABS_TOL  = 1e-4
 
-    stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
-    print('building_id, ' + ', '.join(stat_keys))
-
+    t0 = time.perf_counter()
+    results = []
     for bid in building_ids:
         u0, interior_mask = load_data(LOAD_DIR, bid)
         u_gpu             = cp.asarray(u0)
         interior_mask_gpu = cp.asarray(interior_mask)
         u_gpu = jacobi_gpu(u_gpu, interior_mask_gpu, MAX_ITER, ABS_TOL)
         stats = summary_stats_gpu(u_gpu, interior_mask_gpu)
-        print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+        results.append((bid, stats))
+    t1 = time.perf_counter()
+
+    print('building_id, mean_temp, std_temp, pct_above_18, pct_below_15')
+    for bid, stats in results:
+        print(f"{bid}, {stats['mean_temp']}, {stats['std_temp']}, {stats['pct_above_18']}, {stats['pct_below_15']}")
+
+    print(f"\nElapsed time: {t1 - t0:.6f} s")

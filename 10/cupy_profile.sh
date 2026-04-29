@@ -10,7 +10,7 @@
 #BSUB -e cupy_profile.err
 
 source /dtu/projects/02613_2025/conda/conda_init.sh
-conda activate cupy_env
-module swap cuda cuda/12.6
+conda activate 02613_2026
+module swap cuda cuda/13.2.0
 
 nsys profile -o cupy_profile python cupy_simulate.py 5

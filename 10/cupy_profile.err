@@ -1,7 +1,6 @@
 Loaded module: cuda/11.8
-WARNING: CPU IP/backtrace sampling not supported, disabling.
-Try the 'nsys status --environment' command to learn more.
-
-WARNING: CPU context switch tracing not supported, disabling.
+WARNING: The version of the system or its configuration does not allow enabling CPU profiling:
+- CPU IP/backtrace sampling will be disabled.
+- CPU context switch tracing will be disabled.
 Try the 'nsys status --environment' command to learn more.
 
