@@ -9,6 +9,6 @@
 #BSUB -o nsys_stats.out
 #BSUB -e nsys_stats.err
 
-module load cuda/12.6
+module swap cuda cuda/13.2.0
 
 nsys stats cupy_profile.nsys-rep
