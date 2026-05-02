@@ -13,31 +13,71 @@ def load_data(load_dir, bid):
     return u, interior_mask
 
 
+# Raw CUDA kernel — one full Jacobi step per launch
+jacobi_kernel = cp.RawKernel(r'''
+extern "C" __global__
+void jacobi_step(
+    const double* u_old,
+    double* u_new,
+    const bool* interior_mask,
+    int rows,
+    int cols
+) {
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (i >= rows || j >= cols) return;
+
+    int idx = i * cols + j;
+
+    // interior_mask is (rows-2) x (cols-2), u is rows x cols
+    // interior points: i in [1, rows-2], j in [1, cols-2]
+    if (i >= 1 && i < rows-1 && j >= 1 && j < cols-1) {
+        int mask_idx = (i-1) * (cols-2) + (j-1);
+        if (interior_mask[mask_idx]) {
+            u_new[idx] = 0.25 * (
+                u_old[i * cols + (j-1)] +
+                u_old[i * cols + (j+1)] +
+                u_old[(i-1) * cols + j] +
+                u_old[(i+1) * cols + j]
+            );
+        } else {
+            u_new[idx] = u_old[idx];
+        }
+    } else {
+        u_new[idx] = u_old[idx];
+    }
+}
+''', 'jacobi_step')
+
+
 def jacobi_gpu(u_gpu, interior_mask_gpu, max_iter, atol=1e-4):
-    u_gpu = cp.copy(u_gpu)
+    rows, cols = u_gpu.shape
+    u_old = cp.array(u_gpu, dtype=cp.float64)
+    u_new = cp.empty_like(u_old)
+
+    # interior_mask needs to be contiguous bool
+    mask = cp.ascontiguousarray(interior_mask_gpu, dtype=cp.bool_)
+
+    threads = (16, 16)
+    blocks = (
+        (cols + threads[0] - 1) // threads[0],
+        (rows + threads[1] - 1) // threads[1]
+    )
 
     for i in range(max_iter):
-        u_new = 0.25 * (
-            u_gpu[1:-1, :-2] +
-            u_gpu[1:-1, 2:]  +
-            u_gpu[:-2, 1:-1] +
-            u_gpu[2:,  1:-1]
-        )
-
-        u_new_interior = u_new[interior_mask_gpu]
-
-        # Check convergence every 100 iterations to avoid
-        # repeated GPU->CPU sync (delta.item() is expensive)
+        jacobi_kernel(blocks, threads, (u_old, u_new, mask,
+                                        np.int32(rows), np.int32(cols)))
+        # Check convergence every 100 iterations
         if i % 100 == 0:
-            delta = cp.abs(
-                u_gpu[1:-1, 1:-1][interior_mask_gpu] - u_new_interior
-            ).max()
+            interior = u_new[1:-1, 1:-1][interior_mask_gpu]
+            interior_old = u_old[1:-1, 1:-1][interior_mask_gpu]
+            delta = cp.abs(interior - interior_old).max()
             if delta.item() < atol:
                 break
+        u_old, u_new = u_new, u_old
 
-        u_gpu[1:-1, 1:-1][interior_mask_gpu] = u_new_interior
-
-    return u_gpu
+    return u_old
 
 
 def summary_stats_gpu(u_gpu, interior_mask_gpu):
