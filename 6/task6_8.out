@@ -1,4 +1,5 @@
 No GPU on this node, CUDA module not loaded
+Processing time: 226.59 seconds
 building_id, mean_temp, std_temp, pct_above_18, pct_below_15
 10000, 14.01233878811275, 6.367431059312565, 30.941014791508444, 55.542295034537624
 10009, 11.000135812436373, 5.811144379826625, 16.6712734948236, 74.9723590310584
@@ -93,15 +94,15 @@ building_id, mean_temp, std_temp, pct_above_18, pct_below_15
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28214148: <task6_8> in cluster <dcc> Done
+Subject: Job 28320566: <task6_8> in cluster <dcc> Done
 
-Job <task6_8> was submitted from host <n-62-9-40> by user <s254289> in cluster <dcc> at Wed Apr 15 08:28:44 2026
-Job was executed on host(s) <8*n-62-11-54>, in queue <hpc>, as user <s254289> in cluster <dcc> at Wed Apr 15 08:28:44 2026
+Job <task6_8> was submitted from host <n-62-9-41> by user <s254289> in cluster <dcc> at Tue Apr 28 22:06:51 2026
+Job was executed on host(s) <8*n-62-11-66>, in queue <hpc>, as user <s254289> in cluster <dcc> at Tue Apr 28 22:08:47 2026
 </zhome/20/1/224653> was used as the home directory.
 </zhome/20/1/224653/HPC_project/6> was used as the working directory.
-Started at Wed Apr 15 08:28:44 2026
-Terminated at Wed Apr 15 08:33:17 2026
-Results reported at Wed Apr 15 08:33:17 2026
+Started at Tue Apr 28 22:08:47 2026
+Terminated at Tue Apr 28 22:12:35 2026
+Results reported at Tue Apr 28 22:12:35 2026
 
 Your job looked like:
 
@@ -120,23 +121,23 @@ Your job looked like:
 source /dtu/projects/02613_2025/conda/conda_init.sh
 conda activate 02613_2026
 
-time python task6.py 90 8
+python task6.py 90 8
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   2104.91 sec.
-    Max Memory :                                 140 MB
-    Average Memory :                             135.75 MB
+    CPU time :                                   1743.90 sec.
+    Max Memory :                                 135 MB
+    Average Memory :                             98.25 MB
     Total Requested Memory :                     131072.00 MB
-    Delta Memory :                               130932.00 MB
+    Delta Memory :                               130937.00 MB
     Max Swap :                                   -
     Max Processes :                              12
     Max Threads :                                16
-    Run time :                                   273 sec.
-    Turnaround time :                            273 sec.
+    Run time :                                   228 sec.
+    Turnaround time :                            344 sec.
 
 The output (if any) is above this job summary.
 

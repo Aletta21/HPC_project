@@ -1,5 +1,5 @@
 No GPU on this node, CUDA module not loaded
-Processing time: 821.28 seconds
+Processing time: 1280.98 seconds
 building_id, mean_temp, std_temp, pct_above_18, pct_below_15
 10000, 14.01233878811275, 6.367431059312565, 30.941014791508444, 55.542295034537624
 10009, 11.000135812436373, 5.811144379826625, 16.6712734948236, 74.9723590310584
@@ -94,15 +94,15 @@ building_id, mean_temp, std_temp, pct_above_18, pct_below_15
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28320564: <task6_2> in cluster <dcc> Done
+Subject: Job 28320562: <task6_1> in cluster <dcc> Done
 
-Job <task6_2> was submitted from host <n-62-9-41> by user <s254289> in cluster <dcc> at Tue Apr 28 22:06:30 2026
-Job was executed on host(s) <2*n-62-11-54>, in queue <hpc>, as user <s254289> in cluster <dcc> at Tue Apr 28 22:06:31 2026
+Job <task6_1> was submitted from host <n-62-9-41> by user <s254289> in cluster <dcc> at Tue Apr 28 22:06:19 2026
+Job was executed on host(s) <n-62-11-68>, in queue <hpc>, as user <s254289> in cluster <dcc> at Tue Apr 28 22:06:20 2026
 </zhome/20/1/224653> was used as the home directory.
 </zhome/20/1/224653/HPC_project/6> was used as the working directory.
-Started at Tue Apr 28 22:06:31 2026
-Terminated at Tue Apr 28 22:20:14 2026
-Results reported at Tue Apr 28 22:20:14 2026
+Started at Tue Apr 28 22:06:20 2026
+Terminated at Tue Apr 28 22:27:43 2026
+Results reported at Tue Apr 28 22:27:43 2026
 
 Your job looked like:
 
@@ -110,34 +110,34 @@ Your job looked like:
 # LSBATCH: User input
 #!/bin/bash
 #BSUB -q hpc
-#BSUB -J task6_2
-#BSUB -n 2
+#BSUB -J task6_1
+#BSUB -n 1
 #BSUB -W 00:30
 #BSUB -R "select[model==XeonGold6226R] rusage[mem=16GB]"
 #BSUB -R "span[hosts=1]"
-#BSUB -o task6_2.out
-#BSUB -e task6_2.err
+#BSUB -o task6_1.out
+#BSUB -e task6_1.err
 
 source /dtu/projects/02613_2025/conda/conda_init.sh
 conda activate 02613_2026
 
-python task6.py 90 2
+python task6.py 90 1
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   1639.04 sec.
-    Max Memory :                                 56 MB
-    Average Memory :                             52.22 MB
-    Total Requested Memory :                     32768.00 MB
-    Delta Memory :                               32712.00 MB
+    CPU time :                                   1281.21 sec.
+    Max Memory :                                 43 MB
+    Average Memory :                             41.83 MB
+    Total Requested Memory :                     16384.00 MB
+    Delta Memory :                               16341.00 MB
     Max Swap :                                   -
-    Max Processes :                              6
-    Max Threads :                                10
-    Run time :                                   823 sec.
-    Turnaround time :                            824 sec.
+    Max Processes :                              5
+    Max Threads :                                9
+    Run time :                                   1283 sec.
+    Turnaround time :                            1284 sec.
 
 The output (if any) is above this job summary.
 
@@ -145,5 +145,5 @@ The output (if any) is above this job summary.
 
 PS:
 
-Read file <task6_2.err> for stderr output of this job.
+Read file <task6_1.err> for stderr output of this job.
 
